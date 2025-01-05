@@ -2,18 +2,23 @@ package com.campusdual.classroom;
 
 import com.campusdual.util.Utils;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Exercise32 {
 
     public static void main(String[] args) {
-
+        String userText = generateUserInputToSave();
+        printToFile(userText);
     }
 
     public static String generateStringToSave(String string) {
-
+       if(string!=null){
+            return string;
+        }else {
+        return generateUserInputToSave();
+        }
     }
 
     private static String generateUserInputToSave(){
@@ -27,8 +32,12 @@ public class Exercise32 {
     }
 
     public static void printToFile(String string) {
-
+        String filePath = "src/main/resources/data.txt";
+       try(BufferedWriter buffer = new BufferedWriter(new FileWriter(filePath))){
+           buffer.write(string);
+           System.out.println("Información añadida al fichero data.txt");
+       }catch (IOException e){
+           System.out.println("Error" + e.getMessage());
+       }
     }
-
-
 }
